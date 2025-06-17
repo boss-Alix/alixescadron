@@ -1,118 +1,116 @@
-
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ht">
 <head>
   <meta charset="UTF-8">
-  <title>𝗗𝗼𝘂𝗿𝗱𝗲𝗻𝗮</title>
+  <title>mesaj sekirize</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
   <style>
- h1 {
-            font-size: 5em;
-            color:Black;
-            text-align: center;
-            animation: glowing 5s infinite;
-        }
-        
-
-        @keyframes glowing {
-            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000; }
-            20% { text-shadow: 0 0 10px #ff9900, 0 0 20px #ff9900, 0 0 30px #ff9900, 0 0 40px #ff9900, 0 0 50px #ff9900; }
-            40% { text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00, 0 0 40px #ffff00, 0 0 50px #ffff00; }
-            60% { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
-            80% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff; }
-            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000; }
-        }
-          
-    body { text-align: center; font-family: Arial; background:Black; color: Red; padding: 20px; }
-    p { font-size: 2em; }
-     .btn {
-   display: block;
-   margin: 15px auto;
-   padding: 15px 30px;
-   background-color: #FFFFFF;
-   color:#000000;
-   text-decoration: none;
-   border-radius: 90px;
-   width: 80%;
-   max-width: 300px;
-   font-size: 2em;
-   }
-    div{
-     font-size:2em ;
-     color: white;
-     
-   }
-   .heart {
-  position: absolute;
-  top: -50px;
-  color:Red;
-  font-size: px;
-  animation: fall 1s linear infinite;
-}
-
-
-    @keyframes fall {
-      0% { transform: translateY(0); opacity: 10; }
-      100% { transform: translateY(100vh); opacity: 10; }
+    body {
+      font-family: 'Libre Baskerville', serif;
+      background: linear-gradient(to right, #ffe6f0, #fff0f5);
+      padding: 80px;
+      text-align: center;
     }
-   P{
-     Color:White;
-    text-align:Center;
-   }
+    form {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: inline-block;
+      border: 4px double #EC00D2;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
       
+    }
+    input {
+      padding: 8px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 4px double #EC00D2;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn {
+  display: block;
+  margin: 50px auto;
+  padding: 15px 5px;
+  background-color: #FFFFFF;
+  color: #EC00D2;
+  text-decoration: none;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 300px;
+  border: 4px double #EC00D2;
+}
+    .error {
+      color: red;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-<audio autoplay loop>
-  <source src="https://files.catbox.moe/y861ox.mp3" type="audio/mpeg">
-  Your browser does not support the audio element
-  </audio>
-  <h1>𝐃𝐨𝐮𝐫𝐝𝐞𝐧𝐚,𝐦𝐚 𝐟𝐞𝐦𝐦𝐞❤️</h1>
-  <p>Dourdena chérie ❤️
+<h1>Fòmilè pou jwenn mesaj lan</h1>
+  <form id="loveForm">
+    <label for="yourName">bon nom Mr Drinx:</label>
+    <input type="text" id="yourName" name="yourName" required>
 
-Je prends ce moment pour te dire à quel point je t’aime😍, sincèrement et profondément 💖. Depuis que tu es entrée dans ma vie, tout a changé ✨. Mon cœur a trouvé sa paix 🕊️, mon esprit son refuge 🏡, et mon âme sa moitié 💑</p>
+    <label for="yourSignature">Siyati Mr Drinx:</label>
+    <input type="text" id="yourSignature" name="yourSignature" required>
 
-<p>Chaque jour à tes côtés est une bénédiction 🙏, une raison de sourire 😊 et de croire en l’amour véritable 💘. Tu n’es pas simplement quelqu’un que j’aime, tu es celle que mon cœur a choisie ❤️‍🔥, celle avec qui je veux tout partager mes joies😄,mes peines 😔, mes rêves 🌙, mes silences 🤫.</p>
+    <label for="birthDate">Dat nesans Mr Drinx:</label>
+    <input type="date" id="birthDate" name="birthDate" required>
 
-<p>Tu es mon réconfort quand je suis fatigué 😩, ma force quand je faiblis 💪, mon espoir quand tout semble flou 🌫️Je suis tellement reconnaissant de t’avoir dans ma vie 💎. Tu es mon plus beau cadeau 🎁, mon trésor le plus précieux 💝</p>
+    <label for="partnerName">Non paw:</label>
+    <input type="text" id="partnerName" name="partnerName" required>
 
-<p>J’aime ta façon d’être 😘, ton rire 😂, ta voix 🎶, ton regard 🥰, ta manière unique de me comprendre sans un mot 🤍Avec toi, je me sens complet, vivant, aimé 💑</p>
+    <label for="partnerSignature">Siyati paw:</label>
+    <input type="text" id="partnerSignature" name="partnerSignature" required>
+    <label for="password">Modpas:</label>
+<input type="password" id="password" name="password" required>
+<br>
 
-<p>Et je te le promets, du plus profond de mon cœur ❤️ : peu importe ce que la vie nous réserve 🌧️☀️, je resterai à tes côtés. Je te soutiendrai 🙌, je te respecterai 🙇, je te protégerai 🛡️, et surtout, je t’aimerai toujours💓Je t’aime, aujourd’hui, demain et pour toujours💞💍♾️</p>
-  <img src="https://files.catbox.moe/tdc9ev.jpg" alt="Love" width="300">
-      <!-- Repondre à Alix -->
-    <a href="https://wa.me/message/GWZUMVTNDUSQI1" class="btn repondre" target="_blank">ᴄᴏɴᴛᴀᴄᴛ ᴍʀ 𝐀𝐥𝐢𝐱</a>
-  <div class="current-info" id="Info">Loading...</div>
-    
-</body>
-<script>
-  function updateInfo() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    const dayNames = ["𝓓𝓲𝓶𝓪𝓷𝓬𝓱𝓮", "𝓛𝓾𝓷𝓭𝓲", "𝓜𝓪𝓻𝓭𝓲", "𝓜𝓮𝓻𝓬𝓻𝓮𝓭𝓲", "𝓙𝓮𝓾𝓭𝓲", "𝓥𝓮𝓷𝓭𝓻𝓮𝓭𝓲", "𝓢𝓪𝓶𝓮𝓭𝓲"];
-    const dayName = dayNames[now.getDay()];
-    const date = now.toLocaleDateString(); // Format date as MM/DD/YYYY
-    
-    const timeString = `${hours}:${minutes}:${seconds}`;
-    const infoString = `Time: ${timeString} | Date: ${date} | Day: ${dayName}`;
-    document.getElementById('Info').textContent = infoString;
-  }
-  
-  // Update info every second
-  setInterval(updateInfo, 1000);
-  
-  // Initial call to set info immediately
-  updateInfo();
-  
+    <button type="submit">Voye</button>
+    <div class="error" id="errorMsg"></div>
+  </form>
+
+  <script>
+    document.getElementById('loveForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const yourName = document.getElementById('yourName').value.trim();
+      const yourSignature = document.getElementById('yourSignature').value.trim();
+      const birthDate = document.getElementById('birthDate').value;
+      const partnerName = document.getElementById('partnerName').value.trim();
+      const partnerSignature = document.getElementById('partnerSignature').value.trim();
+     const password = document.getElementById('password').value.trim(); const errorMsg = document.getElementById('errorMsg');
+
+      if (
+        yourName === 'Alix' &&
+        yourSignature === 'ESCADRON' &&
+        birthDate === '2004-07-07' &&
+        partnerName === 'Dourdena' &&
+        partnerSignature === 'ESCADRON' &&
+        password === 'Dourdemia'
+      ) {
+        window.location.href = 'message.html';
+      } else {
+        errorMsg.textContent = 'Ou dwe kontakte Mr Drinx,fòm nan pa ranpli byen';
+      }
+    });
   </script>
-<script>setInterval(() => {
-const heart = document.createElement('div');
-heart.classList.add('heart');
-heart.innerText = '❤️'; // Ou itilize '🌸' pou flè
-heart.style.left = Math.random() * 100 + 'vw';
-heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-document.body.appendChild(heart);
-setTimeout(() => heart.remove(), 5000);
-}, 300);</script>
+  <h2>siw paka ranpli fomilè a kontakte Mr Drinx</h2>
+<h2>peze bouton ki anba</h2>
+<br>
+<a href="https://wa.me/message/GWZUMVTNDUSQI1" class="btn whatsapp" target="_blank">📲 contact drinx</a>
+</body>
 </html>
