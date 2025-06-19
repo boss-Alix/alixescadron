@@ -1,116 +1,18 @@
+
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>mesaj sekirize</title>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Libre Baskerville', serif;
-      background: linear-gradient(to right, #ffe6f0, #fff0f5);
-      padding: 80px;
-      text-align: center;
-    }
-    form {
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      display: inline-block;
-      border: 4px double #EC00D2;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      
-    }
-    input {
-      padding: 8px;
-      width: 250px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      border: 4px double #EC00D2;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn {
-  display: block;
-  margin: 50px auto;
-  padding: 15px 5px;
-  background-color: #FFFFFF;
-  color: #EC00D2;
-  text-decoration: none;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 300px;
-  border: 4px double #EC00D2;
-}
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatBot</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1>Fòmilè pou jwenn mesaj lan</h1>
-  <form id="loveForm">
-    <label for="yourName">bon nom Mr Drinx:</label>
-    <input type="text" id="yourName" name="yourName" required>
-
-    <label for="yourSignature">Siyati Mr Drinx:</label>
-    <input type="text" id="yourSignature" name="yourSignature" required>
-
-    <label for="birthDate">Dat nesans Mr Drinx:</label>
-    <input type="date" id="birthDate" name="birthDate" required>
-
-    <label for="partnerName">Non paw:</label>
-    <input type="text" id="partnerName" name="partnerName" required>
-
-    <label for="partnerSignature">Siyati paw:</label>
-    <input type="text" id="partnerSignature" name="partnerSignature" required>
-    <label for="password">Modpas:</label>
-<input type="password" id="password" name="password" required>
-<br>
-
-    <button type="submit">Voye</button>
-    <div class="error" id="errorMsg"></div>
-  </form>
-
-  <script>
-    document.getElementById('loveForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const yourName = document.getElementById('yourName').value.trim();
-      const yourSignature = document.getElementById('yourSignature').value.trim();
-      const birthDate = document.getElementById('birthDate').value;
-      const partnerName = document.getElementById('partnerName').value.trim();
-      const partnerSignature = document.getElementById('partnerSignature').value.trim();
-     const password = document.getElementById('password').value.trim(); const errorMsg = document.getElementById('errorMsg');
-
-      if (
-        yourName === 'Alix' &&
-        yourSignature === 'ESCADRON' &&
-        birthDate === '2004-07-07' &&
-        partnerName === 'Dourdena' &&
-        partnerSignature === 'DACIUS E.' &&
-        password === 'Dourdemia'
-      ) {
-        window.location.href = 'message.html';
-      } else {
-        errorMsg.textContent = 'Ou dwe kontakte Mr Drinx,fòm nan pa ranpli byen';
-      }
-    });
-  </script>
-  <h2>siw paka ranpli fomilè a kontakte Mr Drinx</h2>
-<h2>peze bouton ki anba</h2>
-<br>
-<a href="https://wa.me/message/GWZUMVTNDUSQI1" class="btn whatsapp" target="_blank">📲 contact drinx</a>
+  <div class="chat-container">
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Ekri mesaj ou..." />
+    <button onclick="sendMessage()">Voye</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
