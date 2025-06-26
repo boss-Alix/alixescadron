@@ -3,327 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de mots de passe oubliés</title>
+    <title>M-IA - Votre assistant intelligent</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .password-item:hover .copy-btn {
-            opacity: 1;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .chat-container {
+            height: 70vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(91, 173, 254, 0.1) 0%, rgba(245, 247, 250, 0.1) 90%);
+            backdrop-filter: blur(5px);
+        }
+        
+        .message-bubble {
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4f46e5;
+            margin: 0 2px;
+        }
+        
+        .typing-indicator span:nth-child(1) {
+            animation: bounce 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation: bounce 1s infinite 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation: bounce 1s infinite 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">🔐 Générateur de mots de passe oubliés</h1>
-            <p class="text-gray-600">Entrez vos informations pour générer des mots de passe potentiels</p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Nom d'utilisateur ou email Instagram</label>
-                    <input type="text" id="username" placeholder="votre_nom ou votre@email.com" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white p-2 rounded-full">
+                        <i class="fas fa-robot text-3xl text-purple-600"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold">M-IA</h1>
                 </div>
-                <div>
-                    <label for="commonWords" class="block text-sm font-medium text-gray-700 mb-1">Mots que vous pourriez avoir utilisés (séparés par des virgules)</label>
-                    <input type="text" id="commonWords" placeholder="chien,123,2023,été,paris" 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-            </div>
-
-            <div class="mt-6">
-                <label for="variations" class="block text-sm font-medium text-gray-700 mb-1">Variations à essayer</label>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox text-purple-600" checked value="capitalize">
-                        <span class="ml-2 text-gray-700">Majuscules</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox text-purple-600" checked value="addNumbers">
-                        <span class="ml-2 text-gray-700">Ajouter chiffres</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox text-purple-600" checked value="reverse">
-                        <span class="ml-2 text-gray-700">Inverser</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox text-purple-600" value="leet">
-                        <span class="ml-2 text-gray-700">Langage Leet (1337)</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-center">
-                <button id="generateBtn" class="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition duration-300 shadow-lg flex items-center">
-                    <i class="fas fa-key mr-2"></i> Générer les mots de passe
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6">
+                        <li><a href="#" class="hover:text-purple-200 transition">Accueil</a></li>
+                        <li><a href="#" class="hover:text-purple-200 transition">Fonctionnalités</a></li>
+                        <li><a href="#" class="hover:text-purple-200 transition">Confidentialité</a></li>
+                        <li><a href="#" class="hover:text-purple-200 transition">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
+    </header>
 
-        <div id="resultsSection" class="hidden bg-white rounded-xl shadow-lg p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">Mots de passe générés</h2>
-                <div class="text-sm text-gray-500">
-                    <span id="passwordCount">0</span> résultats
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Votre assistant intelligent 24/7</h2>
+                <p class="text-xl mb-6 text-purple-100">M-IA comprend et répond dans toutes les langues, avec bienveillance et respect de votre vie privée.</p>
+                <div class="flex space-x-4">
+                    <button class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-100 transition shadow-lg">
+                        Essayer maintenant
+                    </button>
+                    <button class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition">
+                        En savoir plus
+                    </button>
                 </div>
             </div>
-
-            <div class="mb-4 flex items-center">
-                <input type="text" id="filterPasswords" placeholder="Filtrer les mots de passe..." 
-                       class="flex-grow px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                <button id="copyAllBtn" class="ml-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
-                    <i class="fas fa-copy mr-1"></i> Tout copier
-                </button>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative floating">
+                    <div class="w-64 h-64 bg-white rounded-3xl shadow-2xl flex items-center justify-center">
+                        <i class="fas fa-robot text-8xl text-purple-600"></i>
+                    </div>
+                    <div class="absolute -top-6 -right-6 bg-yellow-400 text-purple-900 px-4 py-2 rounded-full font-bold shadow-lg">
+                        Nouveau!
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div id="passwordList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto p-2">
-                <!-- Les mots de passe générés apparaîtront ici -->
-            </div>
-
-            <div id="selectedPasswordSection" class="mt-6 hidden">
-                <div class="bg-purple-50 rounded-lg p-4">
-                    <h3 class="font-medium text-purple-800 mb-2">Mot de passe sélectionné</h3>
-                    <div class="flex items-center">
-                        <input type="text" id="selectedPassword" readonly 
-                               class="flex-grow px-4 py-2 bg-white border border-purple-200 rounded-lg font-mono">
-                        <button id="testPasswordBtn" class="ml-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-                            <i class="fas fa-check mr-1"></i> Essayer
+    <!-- Chatbot Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Discutez avec M-IA</h2>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
+                <!-- Chat header -->
+                <div class="bg-purple-600 text-white p-4 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-purple-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">M-IA</h3>
+                        <p class="text-xs text-purple-200">En ligne - Prêt à vous aider</p>
+                    </div>
+                    <div class="ml-auto flex space-x-2">
+                        <button class="w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-400 flex items-center justify-center">
+                            <i class="fas fa-language"></i>
+                        </button>
+                        <button class="w-8 h-8 rounded-full bg-purple-500 hover:bg-purple-400 flex items-center justify-center">
+                            <i class="fas fa-cog"></i>
                         </button>
                     </div>
-                    <p class="text-sm text-purple-600 mt-2">Copiez ce mot de passe et essayez de vous connecter à Instagram.</p>
+                </div>
+                
+                <!-- Chat container -->
+                <div class="chat-container p-4 overflow-y-auto">
+                    <div id="chat-messages" class="space-y-4">
+                        <!-- Welcome message -->
+                        <div class="flex justify-start">
+                            <div class="message-bubble bg-gray-100 text-gray-800 p-4 rounded-2xl rounded-tl-none">
+                                <p>Bonjour ! 👋 Je suis M-IA, votre assistant intelligent. Comment puis-je vous aider aujourd'hui ?</p>
+                                <p class="text-xs text-gray-500 mt-2">Je parle toutes les langues et je respecte votre confidentialité.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Typing indicator (hidden by default) -->
+                <div id="typing-indicator" class="typing-indicator px-4 pb-2 hidden">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                            <i class="fas fa-robot text-purple-600 text-sm"></i>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-full">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Input area -->
+                <div class="border-t border-gray-200 p-4 bg-gray-50">
+                    <div class="flex items-center">
+                        <button class="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center mr-2">
+                            <i class="fas fa-paperclip text-gray-600"></i>
+                        </button>
+                        <input 
+                            id="user-input" 
+                            type="text" 
+                            placeholder="Tapez votre message ici..." 
+                            class="flex-1 border border-gray-300 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        >
+                        <button 
+                            id="send-button"
+                            class="w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 flex items-center justify-center ml-2 text-white"
+                        >
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 flex items-center">
+                        <i class="fas fa-lock mr-1"></i> Votre conversation est sécurisée et privée
+                    </p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="mt-8 text-center text-gray-500 text-sm">
-            <p>Cet outil fonctionne uniquement sur votre appareil. Aucune information n'est envoyée à nos serveurs.</p>
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Pourquoi choisir M-IA ?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Multilingue</h3>
+                    <p class="text-gray-600 text-center">Comprend et répond dans toutes les langues pour une communication sans frontières.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Confidentialité totale</h3>
+                    <p class="text-gray-600 text-center">Vos conversations restent privées et ne sont jamais stockées ou partagées.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-3">Disponible 24/7</h3>
+                    <p class="text-gray-600 text-center">Une assistance bienveillante disponible à tout moment, jour et nuit.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-robot mr-2"></i> M-IA
+                    </h3>
+                    <p class="text-gray-400">Votre assistant intelligent pour une vie plus simple et plus connectée.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accueil</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Fonctionnalités</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Légal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions d'utilisation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <span>contact@m-ia.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-gray-400"></i>
+                            <span>+33 1 23 45 67 89</span>
+                        </li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 M-IA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const generateBtn = document.getElementById('generateBtn');
-            const usernameInput = document.getElementById('username');
-            const commonWordsInput = document.getElementById('commonWords');
-            const resultsSection = document.getElementById('resultsSection');
-            const passwordList = document.getElementById('passwordList');
-            const passwordCount = document.getElementById('passwordCount');
-            const filterPasswords = document.getElementById('filterPasswords');
-            const copyAllBtn = document.getElementById('copyAllBtn');
-            const selectedPasswordSection = document.getElementById('selectedPasswordSection');
-            const selectedPassword = document.getElementById('selectedPassword');
-            const testPasswordBtn = document.getElementById('testPasswordBtn');
-
-            generateBtn.addEventListener('click', generatePasswords);
-            filterPasswords.addEventListener('input', filterPasswordList);
-            copyAllBtn.addEventListener('click', copyAllPasswords);
-            testPasswordBtn.addEventListener('click', testPassword);
-
-            function generatePasswords() {
-                const username = usernameInput.value.trim();
-                const commonWords = commonWordsInput.value.trim();
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const typingIndicator = document.getElementById('typing-indicator');
+            
+            // Sample responses in multiple languages
+            const responses = [
+                "Je serais ravi de vous aider avec cela. Pouvez-vous me donner plus de détails ?",
+                "C'est une excellente question ! Voici ce que je peux vous dire à ce sujet...",
+                "Je comprends votre demande. Permettez-moi de vous fournir les informations nécessaires.",
+                "D'accord, j'ai bien noté votre question. Voici ma réponse : ...",
+                "Merci pour votre message. En tant qu'assistant respectueux de la vie privée, je peux vous assurer que cette conversation reste confidentielle.",
+                "I'd be happy to help you with that in English if you prefer!",
+                "¡Claro que puedo ayudarte en español también! ¿En qué puedo servirte?",
+                "我可以帮你用中文回答这个问题。请告诉我更多细节。",
+                "Я могу ответить на ваш вопрос по-русски, если вам так удобнее."
+            ];
+            
+            // Function to add a message to the chat
+            function addMessage(content, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
                 
-                if (!username && !commonWords) {
-                    alert('Veuillez entrer au moins un nom d\'utilisateur/email ou des mots communs');
-                    return;
-                }
-
-                const variations = {
-                    capitalize: document.querySelector('input[value="capitalize"]').checked,
-                    addNumbers: document.querySelector('input[value="addNumbers"]').checked,
-                    reverse: document.querySelector('input[value="reverse"]').checked,
-                    leet: document.querySelector('input[value="leet"]').checked
-                };
-
-                const baseWords = [];
-                if (username) baseWords.push(username);
-                if (commonWords) {
-                    commonWords.split(',').forEach(word => {
-                        const trimmed = word.trim();
-                        if (trimmed) baseWords.push(trimmed);
-                    });
-                }
-
-                const generatedPasswords = new Set();
-
-                baseWords.forEach(word => {
-                    // Ajouter le mot de base
-                    generatedPasswords.add(word);
-                    
-                    // Variations de capitalisation
-                    if (variations.capitalize) {
-                        generatedPasswords.add(word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
-                        generatedPasswords.add(word.toUpperCase());
-                    }
-                    
-                    // Ajout de chiffres
-                    if (variations.addNumbers) {
-                        for (let i = 0; i <= 9; i++) {
-                            generatedPasswords.add(word + i);
-                            generatedPasswords.add(i + word);
-                            if (variations.capitalize) {
-                                generatedPasswords.add((word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) + i);
-                                generatedPasswords.add(i + (word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()));
-                            }
-                        }
-                        for (let i = 2020; i <= 2025; i++) {
-                            generatedPasswords.add(word + i);
-                            generatedPasswords.add(i + word);
-                        }
-                    }
-                    
-                    // Inversion
-                    if (variations.reverse) {
-                        generatedPasswords.add(word.split('').reverse().join(''));
-                    }
-                    
-                    // Langage Leet
-                    if (variations.leet) {
-                        const leetMap = {
-                            'a': '4',
-                            'e': '3',
-                            'i': '1',
-                            'o': '0',
-                            's': '5',
-                            't': '7'
-                        };
-                        
-                        let leetWord = word.toLowerCase();
-                        for (const [char, replacement] of Object.entries(leetMap)) {
-                            leetWord = leetWord.replace(new RegExp(char, 'g'), replacement);
-                        }
-                        generatedPasswords.add(leetWord);
-                        
-                        // Combinaison avec d'autres variations
-                        if (variations.capitalize) {
-                            generatedPasswords.add(leetWord.charAt(0).toUpperCase() + leetWord.slice(1));
-                        }
-                        if (variations.addNumbers) {
-                            generatedPasswords.add(leetWord + '123');
-                        }
-                    }
-                });
-
-                // Combinaisons de mots
-                if (baseWords.length > 1) {
-                    for (let i = 0; i < baseWords.length; i++) {
-                        for (let j = 0; j < baseWords.length; j++) {
-                            if (i !== j) {
-                                generatedPasswords.add(baseWords[i] + baseWords[j]);
-                                if (variations.capitalize) {
-                                    generatedPasswords.add(
-                                        (baseWords[i].charAt(0).toUpperCase() + baseWords[i].slice(1).toLowerCase()) + 
-                                        (baseWords[j].charAt(0).toUpperCase() + baseWords[j].slice(1).toLowerCase())
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
-
-                displayPasswords(Array.from(generatedPasswords));
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.className = `message-bubble ${isUser ? 'bg-purple-600 text-white rounded-2xl rounded-tr-none' : 'bg-gray-100 text-gray-800 rounded-2xl rounded-tl-none'} p-4`;
+                bubbleDiv.innerHTML = `<p>${content}</p>`;
+                
+                messageDiv.appendChild(bubbleDiv);
+                chatMessages.appendChild(messageDiv);
+                
+                // Scroll to the bottom of the chat
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-
-            function displayPasswords(passwords) {
-                passwordList.innerHTML = '';
+            
+            // Function to simulate typing
+            function simulateTyping(callback) {
+                typingIndicator.classList.remove('hidden');
                 
-                passwords.sort().forEach(password => {
-                    const passwordItem = document.createElement('div');
-                    passwordItem.className = 'password-item bg-gray-50 rounded-lg p-3 flex justify-between items-center fade-in';
-                    
-                    passwordItem.innerHTML = `
-                        <span class="font-mono text-gray-800 truncate">${password}</span>
-                        <div class="flex space-x-2">
-                            <button class="copy-btn opacity-0 transition-opacity px-2 py-1 text-gray-500 hover:text-purple-600" data-password="${password}">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="select-btn px-2 py-1 text-gray-500 hover:text-purple-600" data-password="${password}">
-                                <i class="fas fa-check-circle"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    passwordList.appendChild(passwordItem);
-                });
+                // Random typing duration between 1 and 3 seconds
+                const duration = 1000 + Math.random() * 2000;
                 
-                passwordCount.textContent = passwords.length;
-                resultsSection.classList.remove('hidden');
-                
-                // Ajouter les événements pour les nouveaux boutons
-                document.querySelectorAll('.copy-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        copyToClipboard(this.getAttribute('data-password'));
-                        this.innerHTML = '<i class="fas fa-check"></i>';
-                        setTimeout(() => {
-                            this.innerHTML = '<i class="fas fa-copy"></i>';
-                        }, 2000);
-                    });
-                });
-                
-                document.querySelectorAll('.select-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const password = this.getAttribute('data-password');
-                        selectedPassword.value = password;
-                        selectedPasswordSection.classList.remove('hidden');
-                        
-                        // Animation de mise en évidence
-                        this.innerHTML = '<i class="fas fa-check-circle text-purple-600"></i>';
-                    });
-                });
-            }
-
-            function filterPasswordList() {
-                const filter = filterPasswords.value.toLowerCase();
-                const items = passwordList.querySelectorAll('.password-item');
-                
-                items.forEach(item => {
-                    const passwordText = item.querySelector('span').textContent.toLowerCase();
-                    if (passwordText.includes(filter)) {
-                        item.classList.remove('hidden');
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-                
-                // Mettre à jour le compteur
-                const visibleCount = Array.from(items).filter(item => !item.classList.contains('hidden')).length;
-                passwordCount.textContent = visibleCount;
-            }
-
-            function copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    // Succès
-                }).catch(err => {
-                    console.error('Erreur lors de la copie: ', err);
-                });
-            }
-
-            function copyAllPasswords() {
-                const passwords = Array.from(passwordList.querySelectorAll('.password-item span'))
-                    .map(span => span.textContent)
-                    .join('\n');
-                
-                copyToClipboard(passwords);
-                
-                // Feedback visuel
-                copyAllBtn.innerHTML = '<i class="fas fa-check mr-1"></i> Copié!';
                 setTimeout(() => {
-                    copyAllBtn.innerHTML = '<i class="fas fa-copy mr-1"></i> Tout copier';
-                }, 2000);
+                    typingIndicator.classList.add('hidden');
+                    callback();
+                }, duration);
             }
-
-            function testPassword() {
-                alert(`Essayez ce mot de passe: "${selectedPassword.value}"\n\nOuvrez Instagram dans un autre onglet et essayez de vous connecter avec ce mot de passe.`);
+            
+            // Function to generate a response
+            function generateResponse() {
+                // Randomly select a response
+                const randomIndex = Math.floor(Math.random() * responses.length);
+                return responses[randomIndex];
             }
+            
+            // Handle send button click
+            sendButton.addEventListener('click', function() {
+                const message = userInput.value.trim();
+                if (message) {
+                    // Add user message
+                    addMessage(message, true);
+                    userInput.value = '';
+                    
+                    // Simulate typing
+                    simulateTyping(() => {
+                        // Add bot response
+                        const response = generateResponse();
+                        addMessage(response, false);
+                    });
+                }
+            });
+            
+            // Handle Enter key press
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendButton.click();
+                }
+            });
+            
+            // Initial greeting
+            setTimeout(() => {
+                addMessage("Vous pouvez me poser des questions sur n'importe quel sujet, et je ferai de mon mieux pour vous répondre de manière claire et précise.", false);
+            }, 1500);
         });
     </script>
 </body>
