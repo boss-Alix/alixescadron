@@ -4,7 +4,8 @@ RUN apt-get update && \
   apt-get install -y \
   ffmpeg \
   imagemagick \
-  webp && \
+  webp \
+  build-essential && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
   
@@ -12,7 +13,9 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install && npm install -g qrcode-terminal pm2
+RUN npm install
+RUN npm install -g qrcode-terminal
+RUN npm install -g pm2
 
 COPY . .
 
