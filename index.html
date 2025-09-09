@@ -1,1 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5c3e6, #b19cd9, #87ceeb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        body.night-mode {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .night-mode .container {
+            background: rgba(25, 25, 35, 0.9);
+            color: #f0f0f0;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #e75480;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .night-mode h1 {
+            color: #ff7aa8;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        
+        .birthday-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e75480;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+        }
+        
+        .night-mode .birthday-img {
+            border: 5px solid #ff7aa8;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .language-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .lang-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, #e75480, #b19cd9);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .night-mode .lang-btn {
+            background: linear-gradient(to right, #ff7aa8, #9f8bc9);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .night-mode .lang-btn:hover {
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e75480;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .night-mode .theme-toggle {
+            background: #ff7aa8;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        
+        .music-toggle {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background: #e75480;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .night-mode .music-toggle {
+            background: #ff7aa8;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        
+        .birthdate {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #e75480;
+            font-size: 1.1rem;
+        }
+        
+        .night-mode .birthdate {
+            color: #ff7aa8;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .night-mode .footer {
+            color: #aaa;
+        }
+        
+        .heart {
+            color: #e75480;
+            font-size: 1.5rem;
+            display: inline-block;
+            margin: 0 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .night-mode .heart {
+            color: #ff7aa8;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .language-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .birthday-img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.2;
+            color: #e75480;
+            z-index: 0;
+        }
+        
+        .night-mode .decoration {
+            color: #ff7aa8;
+        }
+        
+        .dec1 { top: 20px; left: 30px; }
+        .dec2 { top: 20px; right: 30px; }
+        .dec3 { bottom: 20px; left: 40px; }
+        .dec4 { bottom: 20px; right: 40px; }
+        
+        .message-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .night-mode .message-page {
+            background: rgba(25, 25, 35, 0.95);
+        }
+        
+        .message-container {
+            background: linear-gradient(to right, #f9f0ff, #e6f0ff);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .night-mode .message-container {
+            background: linear-gradient(to right, #2d2d42, #252536);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            text-align: left;
+        }
+        
+        .night-mode .message {
+            color: #f0f0f0;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e75480;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .night-mode .close-btn {
+            background: #ff7aa8;
+        }
+        
+        .message-title {
+            color: #e75480;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .night-mode .message-title {
+            color: #ff7aa8;
+        }
+        
+        /* Animations de bougies */
+        .candle {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 70px;
+            z-index: 5;
+        }
+        
+        .candle-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to right, #f5f5f5, #e6e6e6, #f5f5f5);
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .night-mode .candle-body {
+            background: linear-gradient(to right, #555, #444, #555);
+        }
+        
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 30px;
+            background: linear-gradient(to top, #ff9900, #ff5500, #ff9900);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1.5s infinite alternate;
+            box-shadow: 0 0 15px 5px rgba(255, 100, 0, 0.7);
+        }
+        
+        @keyframes flicker {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(0.8); }
+        }
+        
+        /* Bulles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: float 15s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        .night-mode .bubble {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* Curseur personnalisé */
+        .cursor-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            animation: ripple 0.6s linear;
+        }
+        
+        @keyframes ripple {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.7;
+            }
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration dec1">♥</div>
+        <div class="decoration dec2">♥</div>
+        <div class="decoration dec3">♥</div>
+        <div class="decoration dec4">♥</div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <button class="music-toggle" onclick="toggleMusic()">
+            <i class="fas fa-music"></i>
+        </button>
+        
+        <div class="header">
+            <h1>Joyeux Anniversaire! <span class="heart">♥</span></h1>
+            <img src="https://files.catbox.moe/gej2jn.jpeg" alt="Photo d'anniversaire" class="birthday-img">
+            <div class="birthdate">07 Septembre 2010</div>
+        </div>
+        
+        <div class="language-buttons">
+            <button class="lang-btn" onclick="showMessage('kreyol')">Kreyòl</button>
+            <button class="lang-btn" onclick="showMessage('french')">Français</button>
+            <button class="lang-btn" onclick="showMessage('english')">English</button>
+        </div>
+        
+        <div class="footer">
+            <p>Avec tout mon amour, pour toi qui illumines ma vie.</p>
+        </div>
+    </div>
 
+    <!-- Pages de messages (cachées par défaut) -->
+    <div id="kreyol-page" class="message-page">
+        <div class="message-container">
+            <button class="close-btn" onclick="closeMessage('kreyol')">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="message-title">Bon Fèt!</h2>
+            <div id="kreyol-message" class="message"></div>
+        </div>
+    </div>
+    
+    <div id="french-page" class="message-page">
+        <div class="message-container">
+            <button class="close-btn" onclick="closeMessage('french')">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="message-title">Joyeux Anniversaire!</h2>
+            <div id="french-message" class="message"></div>
+        </div>
+    </div>
+    
+    <div id="english-page" class="message-page">
+        <div class="message-container">
+            <button class="close-btn" onclick="closeMessage('english')">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="message-title">Happy Birthday!</h2>
+            <div id="english-message" class="message"></div>
+        </div>
+    </div>
+
+    <!-- Bougies -->
+    <div class="candle" style="left: 10%;">
+        <div class="candle-body"></div>
+        <div class="flame"></div>
+    </div>
+    <div class="candle" style="left: 30%;">
+        <div class="candle-body"></div>
+        <div class="flame"></div>
+    </div>
+    <div class="candle" style="left: 50%;">
+        <div class="candle-body"></div>
+        <div class="flame"></div>
+    </div>
+    <div class="candle" style="left: 70%;">
+        <div class="candle-body"></div>
+        <div class="flame"></div>
+    </div>
+    <div class="candle" style="left: 90%;">
+        <div class="candle-body"></div>
+        <div class="flame"></div>
+    </div>
+
+    <!-- Audio pour la musique -->
+    <audio id="birthdayMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2021/10/25/audio_172d7dec90.mp3?filename=happy-birthday-song-2021-108817.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Messages dans différentes langues
+        const messages = {
+            kreyol: `𝐌𝐚 𝐃𝐨𝐮𝐫𝐝𝐞✨🍒🏆,
+            
+Jodi a se yon jou espesyal 🎉🌟, paske se fèt ou 🎂👑🎈!  
+Mwen vle remèsye w pou tout bèl moman 🫂💖 nou deja pase ansanm,  
+pou souri w 😊🌼 ki fè kè‘m bat fò🎶💓,  
+epi pou lanmou w 💞 ki pouse m chak jou vle vin yon moun meyè 💪🏽🌟.
+
+Ou se yon bèl jèn fi 👸🏽🌸, plen bonte 🤍, entèlijans 🧠, ak bote natirèl 🌹.
+Ou gen yon kè pure❤️, yon bèl avni✨, ak yon lespri ki klere 🕊️.  
+Mwen swete w tout sa ki pi bèl nan lavi:  
+sante 🩺, kontantman 😄, lanmou 💘, siksè 🏆, ak anpil lajwa 🎊.
+
+Pou ane sa a, mwen swete w yon lane ki plen reyalizasyon 🥇,  
+bèl eksperyans ✈️🎨, ak rèv ki tounen reyalite 🌈💭.  
+Kenbe kontantman w 🤗 ak bèl enèji w 💫 ki fè ou inoubliyab 🌟.
+
+Mwen renmen ou anpil 💗, epi m gen konfyans nan ou 🌠.  
+Bòn fèt, ma belle 🎂👑🥳
+
+Pou tout sa w fè pou mwen 🫶, pou tout bèl pawòl 💌 ou toujou di m,  
+pou konpreyansyon ak lanmou w 🤍, mèsi anpil 🙏🏽❤️.
+
+mh swete Ou vin pi bèl 😍, pi entèlijan 🧠, epi pi ekstraòdinè 🌸 chak ane k ap pase.  
+Mwen fyè de ou 🌱➡️🌺, epi m kontan wè efò wp fe chak jour pou nou toujour konekte🌟.
+
+Mwen swete w yon fèt ki plen plezi 🎮🎶, ak bèl sipriz 🎁✨.  
+M swete jodi a se yon jou ou pap janm bliye 💖🗓️.
+
+Avèk tout lanmou mwen gen pou ou babe😘💕
+𝐈 𝐥𝐨𝐯𝐞 𝐲𝐨𝐮😘🫶✨`,
+
+            french: `
+💝🎉 Joyeux Anniversaire Dourdena, mon amour 💖🌸
+
+Aujourd’hui, ce n’est pas un jour comme les autres😍💕 C’est le jour où est née la femme la plus précieuse à mes yeux👑✨.  
+Une femme douce 🕊️, forte 💪🏽, attentionnée 🤗, magnifique 🌹 toi, Dourdena💘.
+
+Depuis que tu es entrée dans ma vie 💫, tout a changé.  
+Tu as donné un sens à mes journées ☀️, une lumière à mes nuits 🌙,un calme à mes tempêtes 🌧️➡️🌈.  
+Tu es celle qui me comprend même sans mots 🤍.  
+Ton sourire 😍 guérit mes fatigues 😌.  
+Ta voix me calme plus que n’importe quelle chanson 🎶🫶🏽.
+
+Je te souhaite un anniversaire rempli de bonheur 🌺, de belles surprises 🎁, de rires sincères 😂,et d’amour en abondance 💞.  
+Mais surtout, je te souhaite de réaliser tous tes rêves 🌟, de continuer à briller 🌟, et de ne jamais oublier à quel point tu es exceptionnelle 🌷.
+
+Merci d’être là 🙏🏽. Merci d’être toi 🫶🏽. Merci de me choisir chaque jour 💑.
+Tu es mon trésor 💎, ma force 🛡️,ma douceur 🍯,et mon avenir 🌍
+
+Je t’aime plus que les mots ne pourront jamais l’exprimer 💌❤️
+Joyeux anniversaire, Dourde💘🎂🎈🎊
+Celui qui t’aime profondément, aujourd’hui et pour toujours 🌹👑💑.`,
+
+            english: `
+
+My beloved sweetheart ✨🍒🏆,
+
+Today is a special day 🎉🌟because it's your birthday 🎂👑🎈!
+I want to thank you for all the beautiful moments 🫂💖we've spent together,  
+for your smile 😊🌼that makes my heart sing 🎶💓,  
+and for your love 💞that makes me want to always be better 💪🏽🌟.
+
+You are a beautiful woman 👸🏽🌸full of kindness 🤍intelligence 🧠and beauty 🌹  
+You have a good heart ❤️, a beautiful soul ✨and a radiant spirit 🕊️
+I wish you all the beautiful things in life:  
+health 🩺happiness 😄, love 💖success 🏆 and lots of joy 🎊
+
+For this year, I wish you a year full of achievements 🥇
+beautiful experiences ✈️🎨and dreams come true 🌈💭  
+Keep your joy 🤗 and your beautiful energy 💫that make you so unique 🌟
+
+I love you very much 💗, and I believe in you 🌠
+Happy birthday, my queen! 🎂👑🥳
+
+For everything you do for me 🫶, for all the sweet words 💌you say,  
+for your understanding and love 🤍, I say thank you 🙏🏽❤️
+
+It’s not every day we turn 14 🧁🎉!  
+You're becoming more beautiful 😍, wiser 🧠, and more amazing 🌸 each year.  
+I'm proud to see how you're growing 🌱➡️🌺and becoming someone *incredible 🌟`
+        };
+
+        // Variables globales
+        let musicPlaying = false;
+        const audio = document.getElementById('birthdayMusic');
+        const bubblesContainer = document.body;
+        
+        // Fonction pour basculer entre le mode nuit et jour
+        function toggleTheme() {
+            document.body.classList.toggle('night-mode');
+            const themeToggle = document.querySelector('.theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('night-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+        
+        // Fonction pour activer/désactiver la musique
+        function toggleMusic() {
+            const musicToggle = document.querySelector('.music-toggle');
+            const icon = musicToggle.querySelector('i');
+            
+            if (musicPlaying) {
+                audio.pause();
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+            } else {
+                audio.play().catch(e => {
+                    console.log("La lecture automatique a été bloquée. Veuillez interagir avec la page d'abord.");
+                });
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-volume-up');
+            }
+            
+            musicPlaying = !musicPlaying;
+        }
+        
+        // Fonction pour afficher le message dans la langue sélectionnée avec effet de frappe
+        function showMessage(lang) {
+            const messagePage = document.getElementById(`${lang}-page`);
+            const messageElement = document.getElementById(`${lang}-message`);
+            
+            // Afficher la page de message
+            messagePage.style.display = 'flex';
+            
+            // Réinitialiser le contenu du message
+            messageElement.textContent = '';
+            
+            // Obtenir le message complet
+            const fullMessage = messages[lang];
+            let index = 0;
+            
+            // Fonction pour écrire le message caractère par caractère
+            function typeWriter() {
+                if (index < fullMessage.length) {
+                    messageElement.textContent += fullMessage.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 30); // Vitesse de frappe
+                }
+            }
+            
+            // Démarrer l'effet de frappe
+            typeWriter();
+        }
+        
+        // Fonction pour fermer le message
+        function closeMessage(lang) {
+            document.getElementById(`${lang}-page`).style.display = 'none';
+        }
+        
+        // Fermer le message en cliquant à l'extérieur
+        window.onclick = function(event) {
+            if (event.target.classList.contains('message-page')) {
+                document.querySelectorAll('.message-page').forEach(page => {
+                    page.style.display = 'none';
+                });
+            }
+        }
+        
+        // Créer des bulles flottantes
+        function createBubbles() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createBubble();
+                }, i * 500);
+            }
+            
+            setInterval(createBubble, 2000);
+        }
+        
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            // Taille aléatoire
+            const size = Math.random() * 40 + 10;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // Position aléatoire
+            const posX = Math.random() * 100;
+            bubble.style.left = `${posX}%`;
+            
+            // Durée d'animation aléatoire
+            const duration = Math.random() * 10 + 10;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(bubble);
+            
+            // Supprimer la bulle après l'animation
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+        }
+        
+        // Effet de clic avec bulles
+        document.addEventListener('click', function(e) {
+            // Effet de ripple
+            const ripple = document.createElement('div');
+            ripple.classList.add('cursor-effect');
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+            document.body.appendChild(ripple);
+            
+            // Supprimer l'effet après l'animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+            
+            // Créer des bulles au point de clic
+            for (let i = 0; i < 5; i++) {
+                createBubbleAtPosition(e.clientX, e.clientY);
+            }
+        });
+        
+        function createBubbleAtPosition(x, y) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            // Taille aléatoire
+            const size = Math.random() * 30 + 10;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // Position au point de clic
+            bubble.style.left = `${x}px`;
+            bubble.style.top = `${y}px`;
+            
+            // Durée d'animation aléatoire
+            const duration = Math.random() * 5 + 5;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(bubble);
+            
+            // Supprimer la bulle après l'animation
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+        }
+        
+        // Initialiser les animations au chargement de la page
+        window.onload = function() {
+            createBubbles();
+            
+            // Ajouter des bougies supplémentaires
+            for (let i = 0; i < 5; i++) {
+                const candle = document.createElement('div');
+                candle.classList.add('candle');
+                candle.style.left = `${Math.random() * 100}%`;
+                
+                const candleBody = document.createElement('div');
+                candleBody.classList.add('candle-body');
+                
+                const flame = document.createElement('div');
+                flame.classList.add('flame');
+                
+                candle.appendChild(candleBody);
+                candle.appendChild(flame);
+                document.body.appendChild(candle);
+            }
+        };
+    </script>
+</body>
+</html>
