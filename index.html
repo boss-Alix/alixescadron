@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Biologie - Inscription</title>
+
+<link rel="icon" type="image/x-icon"
+href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+background:
+linear-gradient(
+rgba(12,36,97,0.7),
+rgba(30,55,153,0.7)
+),
+url('https://files.catbox.moe/5u3toy.jpg');
+
+background-size:cover;
+background-position:center;
+
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:white;
+padding:20px;
+}
+
+.container{
+position:relative;
+overflow:hidden;
+z-index:1;
+width:100%;
+max-width:500px;
+}
+
+.container::before{
+content:'';
+position:absolute;
+width:150%;
+height:150%;
+background:
+conic-gradient(
+#4a69bd,
+#6a89cc,
+#00d2ff,
+#3a1c71,
+#d76d77,
+#ffaf7b,
+#4a69bd
+);
+
+top:-25%;
+left:-25%;
+
+animation:rotate 4s linear infinite;
+z-index:-2;
+}
+
+.container::after{
+content:'';
+position:absolute;
+inset:4px;
+background:rgba(15,32,67,0.92);
+border-radius:16px;
+z-index:-1;
+}
+
+@keyframes rotate{
+from{
+transform:rotate(0deg);
+}
+to{
+transform:rotate(360deg);
+}
+}
+
+.registration-form{
+padding:30px;
+}
+
+.app-logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo-circle{
+width:100px;
+height:100px;
+background:rgba(15,32,67,0.9);
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0 auto 20px;
+overflow:hidden;
+}
+
+.real-logo{
+width:100px;
+height:100px;
+object-fit:contain;
+}
+
+.app-logo h1{
+font-size:28px;
+color:#ffeaa7;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:6px;
+font-weight:500;
+}
+
+.form-group input,
+.form-group select{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:rgba(255,255,255,0.9);
+font-size:16px;
+color:#2d3436;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+outline:none;
+}
+
+.country-selector{
+position:relative;
+}
+
+.flag-preview{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+display:flex;
+align-items:center;
+gap:10px;
+pointer-events:none;
+z-index:10;
+}
+
+.flag-preview img{
+width:30px;
+height:20px;
+border-radius:3px;
+object-fit:cover;
+}
+
+.country-selector select{
+padding-left:120px;
+}
+
+.btn-primary{
+width:100%;
+padding:16px;
+background:
+linear-gradient(
+to right,
+#4a69bd,
+#6a89cc
+);
+
+color:white;
+border:none;
+border-radius:10px;
+
+font-size:18px;
+font-weight:600;
+
+cursor:pointer;
+
+margin-top:20px;
+}
+
+.btn-primary:hover{
+opacity:0.9;
+}
+
+#otpBox{
+display:none;
+margin-top:20px;
+}
+
+.instruction{
+margin-top:20px;
+text-align:center;
+color:#dfe6e9;
+font-size:14px;
+}
+
+@media(max-width:600px){
+
+.country-selector select{
+padding-left:70px;
+}
+
+.flag-preview span{
+display:none;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="registration-form">
+
+<div class="app-logo">
+
+<div class="logo-circle">
+
+<img
+src="https://files.catbox.moe/dbcm8s.png"
+alt="Logo"
+class="real-logo">
+
+</div>
+
+<h1>Quiz Biologie</h1>
+
+</div>
+
+<form id="registrationForm">
+
+<div class="form-group">
+
+<label>Nom:</label>
+
+<input
+type="text"
+id="playerName"
+placeholder="Votre nom..."
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Prénom:</label>
+
+<input
+type="text"
+id="firstName"
+placeholder="Votre prénom..."
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Nom d'utilisateur:</label>
+
+<input
+type="text"
+id="username"
+placeholder="Votre nom d'utilisateur..."
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Mot de passe:</label>
+
+<input
+type="password"
+id="password"
+placeholder="Mot de passe..."
+minlength="8"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Confirmer le mot de passe:</label>
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirmez..."
+minlength="8"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Gmail:</label>
+
+<input
+type="email"
+id="email"
+placeholder="exemple@gmail.com"
+required>
+
+</div>
+
+<div class="form-group">
+
+<div class="g-recaptcha"
+data-sitekey="6Lf2iZgsAAAAAJiC9hUNXCZy1jCV0RahC_F5KZzz">
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>Sélectionnez votre pays</label>
+
+<div class="country-selector">
+
+<div class="flag-preview"
+id="flagPreview">
+
+<img
+src="https://flagcdn.com/w40/fr.png">
+
+<span id="countryName">
+France
+</span>
+
+</div>
+
+<select id="countrySelect">
+
+<option value="fr">France</option>
+<option value="ht">Haïti</option>
+<option value="us">États-Unis</option>
+<option value="ca">Canada</option>
+<option value="be">Belgique</option>
+<option value="ch">Suisse</option>
+<option value="de">Allemagne</option>
+<option value="es">Espagne</option>
+<option value="it">Italie</option>
+<option value="uk">Royaume-Uni</option>
+<option value="br">Brésil</option>
+<option value="jp">Japon</option>
+<option value="au">Australie</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button
+type="submit"
+class="btn-primary">
+
+Continuer ➡️
+
+</button>
+
+</form>
+
+<div id="otpBox">
+
+<input
+type="number"
+id="otpInput"
+placeholder="Entrer OTP">
+
+<button
+class="btn-primary"
+onclick="verifyOTP()">
+
+Vérifier OTP
+
+</button>
+
+</div>
+
+<div class="instruction">
+
+<p>
+Votre progression sera enregistrée.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+
+getAuth,
+
+createUserWithEmailAndPassword
+
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+import {
+
+getFirestore,
+
+doc,
+
+setDoc
+
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey:"AIzaSyCF2I4LEcMA1oJRwa7xthvSOQGSCg6lPjs",
+
+authDomain:"aliquiz-509.firebaseapp.com",
+
+projectId:"aliquiz-509",
+
+storageBucket:"aliquiz-509.firebasestorage.app",
+
+messagingSenderId:"319472495068",
+
+appId:"1:319472495068:web:092e0b9efb14dae8f60719"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+emailjs.init("oLCYHNW4WA4xpu0u3");
+
+const countrySelect =
+document.getElementById('countrySelect');
+
+const flagPreview =
+document.getElementById('flagPreview');
+
+countrySelect.addEventListener(
+'change',
+function(){
+
+const selectedOption =
+this.options[this.selectedIndex];
+
+flagPreview.querySelector('img').src =
+`https://flagcdn.com/w40/${selectedOption.value}.png`;
+
+flagPreview.querySelector('span').textContent =
+selectedOption.textContent;
+
+}
+);
+
+document.getElementById(
+'registrationForm'
+).addEventListener(
+'submit',
+async function(e){
+
+e.preventDefault();
+
+const playerName =
+document.getElementById(
+'playerName'
+).value;
+
+const firstName =
+document.getElementById(
+'firstName'
+).value;
+
+const username =
+document.getElementById(
+'username'
+).value;
+
+const password =
+document.getElementById(
+'password'
+).value;
+
+const confirmPassword =
+document.getElementById(
+'confirmPassword'
+).value;
+
+const email =
+document.getElementById(
+'email'
+).value;
+
+const country =
+document.getElementById(
+'countrySelect'
+).value;
+
+if(password !== confirmPassword){
+
+alert(
+'Les mots de passe ne correspondent pas'
+);
+
+return;
+
+}
+
+if(password.length < 8){
+
+alert(
+'Minimum 8 caractères'
+);
+
+return;
+
+}
+
+const otp =
+Math.floor(
+100000 + Math.random() * 900000
+);
+
+localStorage.setItem("otp", otp);
+
+localStorage.setItem(
+"userData",
+
+JSON.stringify({
+
+playerName,
+firstName,
+username,
+password,
+email,
+country
+
+})
+
+);
+
+try{
+
+await emailjs.send(
+
+"service_v9zbetq",
+
+"template_pcuqdio",
+
+{
+
+email:email,
+
+otp:otp
+
+}
+
+);
+
+document.getElementById(
+"otpBox"
+).style.display = "block";
+
+alert(
+"OTP envoyé sur Gmail"
+);
+
+}catch(error){
+
+console.log(error);
+
+alert("Erreur OTP");
+
+}
+
+}
+);
+
+window.verifyOTP = async function(){
+
+const otpInput =
+document.getElementById(
+"otpInput"
+).value;
+
+const savedOTP =
+localStorage.getItem("otp");
+
+if(otpInput != savedOTP){
+
+alert("OTP incorrect");
+
+return;
+
+}
+
+const userData =
+JSON.parse(
+localStorage.getItem("userData")
+);
+
+try{
+
+const userCredential =
+
+await createUserWithEmailAndPassword(
+
+auth,
+
+userData.email,
+
+userData.password
+
+);
+
+const user =
+userCredential.user;
+
+await setDoc(
+
+doc(db,"users",user.uid),
+
+{
+
+nom:userData.playerName,
+
+prenom:userData.firstName,
+
+username:userData.username,
+
+email:userData.email,
+
+country:userData.country,
+
+uid:user.uid,
+
+createdAt:new Date()
+
+}
+
+);
+
+window.location.href =
+"dashboard.html";
+
+}catch(error){
+
+console.log(error);
+
+alert(error.code);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
