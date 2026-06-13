@@ -3,107 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AliQuiz - Arena</title>
+    <title>AliQuiz - Session de Jeu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #0a0e1a;
-            --panel-bg: rgba(16, 24, 48, 0.95);
-            --accent-gold: #ffeaa7;
-            --accent-cyan: #00d2ff;
-            --text-light: #ffffff;
-            --text-muted: #a4b0be;
+            --bg-primary: #0a0e1a;
+            --bg-card: rgba(16, 24, 48, 0.95);
+            --accent: #00d2ff;
+            --accent-hover: #ffeaa7;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
             --success: #2ed573;
-            --error: #ff4757;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --danger: #ff4757;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            background: linear-gradient(rgba(10, 14, 26, 0.85), rgba(10, 14, 26, 0.98)), url('https://files.catbox.moe/5u3toy.jpg');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            min-height: 100vh; color: var(--text-light); display: flex; justify-content: center; align-items: center; padding: 20px;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1c2e 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
 
-        .container { width: 100%; max-width: 700px; background: var(--panel-bg); backdrop-filter: blur(15px); border: 1px solid var(--border-color); padding: 30px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; }
+        /* ---------------- Header & Profil (Menm jan ak Dashboard) ---------------- */
+        .header-nav {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            padding: 12px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+        .user-profile-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            object-fit: cover;
+            background: #2d3748;
+        }
+
+        .user-info-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .username-display { font-size: 0.95rem; font-weight: 600; color: #fff; }
         
-        h1 { color: var(--accent-gold); margin-bottom: 20px; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        h2 { color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.4rem; }
-        p { color: var(--text-muted); margin-bottom: 20px; }
+        .coins-pill {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
 
-        /* Griy pou bouton yo */
-        .grid-selection { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; max-height: 400px; overflow-y: auto; padding: 10px; }
-        .grid-selection::-webkit-scrollbar { width: 6px; }
-        .grid-selection::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        /* ---------------- Ka jwèt la (Quiz Card) ---------------- */
+        .quiz-container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
 
-        .btn-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 15px; border-radius: 14px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-transform: capitalize; font-size: 0.95rem; }
-        .btn-box:hover { background: rgba(0, 210, 255, 0.08); border-color: var(--accent-cyan); transform: translateY(-2px); }
+        /* Stats Bar anndan jwèt la */
+        .game-stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
 
-        .btn-level { background: rgba(255, 234, 167, 0.05); border: 1px solid rgba(255, 234, 167, 0.2); color: var(--accent-gold); font-size: 1.1rem; font-weight: bold; padding: 20px; border-radius: 12px; }
-        .btn-level:hover { background: var(--accent-gold); color: var(--bg-dark); }
+        .stat-item { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+        .stat-item span { color: var(--accent); font-weight: bold; }
 
-        /* UI Jwèt la */
-        .quiz-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 0.9rem; }
-        .question-text { font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; line-height: 1.5; text-align: left; }
-        
-        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
-        .option-btn { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 12px; color: white; text-align: left; font-size: 1rem; cursor: pointer; transition: all 0.2s; width: 100%; }
-        .option-btn:hover { background: rgba(255,255,255,0.08); }
-        
-        /* Koulè Repons yo */
-        .correct { background: var(--success) !important; border-color: var(--success) !important; color: #0a0e1a !important; font-weight: bold; }
-        .wrong { background: var(--error) !important; border-color: var(--error) !important; color: white !important; }
+        /* Ti Revey la (Timer CSS) */
+        .timer-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            color: var(--danger);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+        .timer-box.warning {
+            animation: pulse 0.5s infinite alternate;
+        }
 
-        .btn-action { background: linear-gradient(135deg, #4a69bd, #5758bb); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-action:hover { transform: translateY(-2px); }
-        .btn-buy { background: linear-gradient(135deg, #f1c40f, #f39c12); color: #0a0e1a; margin-top: 10px; font-size: 0.85rem; padding: 8px 16px; }
+        /* Zòn Kesyon an */
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
 
-        .btn-back { background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; position: absolute; top: 20px; left: 20px; }
-        .btn-back:hover { background: rgba(255,255,255,0.05); }
+        /* Bouton Repons yo */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            border-radius: 14px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .option-btn:disabled { cursor: not-allowed; }
+
+        /* Koulè lè reponn */
+        .option-btn.correct {
+            background: rgba(46, 213, 115, 0.2) !important;
+            border-color: var(--success) !important;
+            color: var(--success) !important;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background: rgba(255, 71, 87, 0.2) !important;
+            border-color: var(--danger) !important;
+            color: var(--danger) !important;
+        }
+
+        /* Bouton Swivan (Action Bar) */
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            min-height: 50px;
+        }
+
+        .next-btn {
+            background: linear-gradient(90deg, #00d2ff 0%, #00a8ff 100%);
+            color: #0a0e1a;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: none; /* L ap parèt sèlman lè moun nan fin klike */
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+        .next-btn:hover {
+            transform: scale(1.03);
+            background: var(--accent-hover);
+        }
+
+        /* ---------------- Notifikasyon Custom ---------------- */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: white;
+            padding: 16px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 5px solid transparent;
+        }
+        .toast-notification.active { transform: translateX(0); }
+        .toast-success { border-left-color: var(--success); }
+        .toast-error { border-left-color: var(--danger); }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
 
-    <button class="btn-back" id="btnBack" style="display: none;" onclick="goBack()">← Retour</button>
-
-    <div class="container">
-        <div id="viewSystem">
-            <h1>Sélectionnez un Appareil</h1>
-            <p>Choisissez le système anatomique pour démarrer le quiz</p>
-            <div class="grid-selection" id="systemsGrid"></div>
-        </div>
-
-        <div id="viewLevel" style="display: none;">
-            <h1 id="selectedSystemTitle">Appareil</h1>
-            <h2>Choisissez un Niveau</h2>
-            <p>Chaque niveau contient 15 questions. Score requis : 10/15.</p>
-            <div class="grid-selection" id="levelsGrid"></div>
-        </div>
-
-        <div id="viewQuiz" style="display: none;">
-            <div class="quiz-header">
-                <div>Coins: <span id="playerCoinsText" style="color: var(--accent-gold);">0</span> AC</div>
-                <div id="quizProgress">Question: 1/15</div>
-                <div>Score: <span id="currentScoreText" style="color: var(--success);">0</span>/15</div>
+    <header class="header-nav">
+        <a href="dashboard.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Quitter
+        </a>
+        <div class="user-profile-box">
+            <div class="user-info-text">
+                <span class="username-display" id="user-name">Chargement...</span>
+                <span class="coins-pill"><i class="fa-solid fa-coins"></i> <span id="user-coins">0</span> AC</span>
             </div>
-            <div class="question-text" id="questionField">Chargement de la question...</div>
-            <div class="options-list" id="optionsBox"></div>
+            <img src="" alt="Avatar" class="user-avatar" id="user-avatar" onerror="this.src='https://via.placeholder.com/150'">
+        </div>
+    </header>
+
+    <main class="quiz-container">
+        <div class="game-stats-bar">
+            <div class="stat-item">Aparey: <span id="current-system">-</span></div>
+            <div class="stat-item">Question: <span id="question-counter">0/15</span></div>
             
-            <button class="btn-action btn-buy" id="btnBuyAnswer" onclick="buyCurrentAnswer()">Acheter la réponse (<span id="buyCostText">5</span> AC)</button>
+            <div class="timer-box" id="timer-display">
+                <i class="fa-solid fa-clock"></i> <span id="seconds-left">15</span>s
+            </div>
         </div>
 
-        <div id="viewResult" style="display: none;">
-            <h1 id="resultTitle">Résultat</h1>
-            <h2 id="resultScore" style="font-size: 2.5rem; margin: 20px 0;">0 / 15</h2>
-            <p id="resultMessage">Message de fin</p>
-            <button class="btn-action" onclick="showLevelsScreen()">Continuer</button>
+        <div class="question-text" id="question-box">Chargement de la question...</div>
+
+        <div class="options-grid" id="options-box">
+            </div>
+
+        <div class="action-bar">
+            <button class="next-btn" id="btn-next" onclick="nextQuestion()">
+                Swivan <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
+    </main>
+
+    <div class="toast-notification" id="toast-notif">
+        <i id="toast-icon" class="fa-solid"></i>
+        <span id="toast-message">Mesaj</span>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
+        // Konfigirasyon Firebase ou a
         const firebaseConfig = {
             apiKey: "AIzaSyCF2I4LEcMA1oJRwa7xthvSOQGSCg6lPjs",
             authDomain: "aliquiz-509.firebaseapp.com",
@@ -115,272 +309,217 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        // LIS APARÈY YO
-        const apparatList = [
-            "Appareil digestif", "Appareil circulatoire", "Appareil respiratoire", "Appareil locomoteur",
-            "Appareil squelettique", "Appareil musculaire", "Appareil excréteur", "Appareil reproducteur",
-            "Appareil tégumentaire", "Appareil urinaire", "Système génétique", "Système nerveux central",
-            "Système nerveux périphérique", "Appareil sensoriel", "Système immunitaire", "Système endocrinien",
-            "Système lymphatique", "Appareil auditif", "Appareil génito-urinaire", "Appareil phonatoire"
-        ];
+        // Paramèt Jwèt la
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let timerInterval;
+        let timeLimit = 15;
+        let currentCoins = 0;
+        let currentUserDocRef = null;
 
-        // Son yo (Web Audio API pou evite telechaje gwo fichiye son)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(type) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            if(type === 'correct') {
-                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.15);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.2);
+        // Ranmase Paramèt ki nan URL la (Aparèy ak Nivo)
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedSystem = urlParams.get('system') || "Appareil digestif";
+        const selectedLevel = parseInt(urlParams.get('level')) || 1;
+
+        // OnAuthStateChanged: Tcheke si Itilizatè a konekte epi pran pwofil li
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserDocRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(currentUserDocRef);
+                
+                if (userSnap.exists()) {
+                    const userData = userSnap.data();
+                    currentCoins = userData.coins || 0;
+                    
+                    // Afiche Done Pwofil yo
+                    document.getElementById('user-name').innerText = userData.username || "Joueur";
+                    document.getElementById('user-coins').innerText = currentCoins;
+                    if (userData.avatarUrl) {
+                        document.getElementById('user-avatar').src = userData.avatarUrl;
+                    }
+                }
+                // Chaje kesyon yo apre nou fin gen enfòmasyon itilizatè a
+                loadGameQuestions();
             } else {
-                osc.frequency.setValueAtTime(250, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+                window.location.href = "login.html"; // Redirije si l pa konekte
             }
-        }
-
-        // Eta Global Jwèt la
-        let currentQuizUser = null;
-        let userData = {};
-        let selectedSystem = "";
-        let selectedLevel = 1;
-        let questionsList = [];
-        let currentQuestionIndex = 0;
-        let currentScore = 0;
-        let purchasedCountThisLevel = 0;
-        let hasAnswered = false;
-
-        window.addEventListener('DOMContentLoaded', async () => {
-            currentQuizUser = JSON.parse(localStorage.getItem("currentQuizUser"));
-            if (!currentQuizUser) { window.location.href = 'index.html'; return; }
-            
-            // Rekipere done jwè a
-            const userDoc = await getDoc(doc(db, "users", currentQuizUser.uid));
-            if(userDoc.exists()) { userData = userDoc.data(); }
-
-            buildSystemsGrid();
         });
 
-        function buildSystemsGrid() {
-            document.getElementById('btnBack').style.display = 'none';
-            const grid = document.getElementById('systemsGrid');
-            grid.innerHTML = "";
-            apparatList.forEach(sys => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-box';
-                btn.innerText = sys;
-                btn.onclick = () => selectSystem(sys);
-                grid.appendChild(btn);
-            });
-        }
-
-        function selectSystem(systemName) {
-            selectedSystem = systemName;
-            document.getElementById('viewSystem').style.display = 'none';
-            document.getElementById('viewLevel').style.display = 'block';
-            document.getElementById('btnBack').style.display = 'block';
-            document.getElementById('selectedSystemTitle').innerText = systemName;
-
-            // Bati griy 20 nivo yo
-            const grid = document.getElementById('levelsGrid');
-            grid.innerHTML = "";
-            for (let i = 1; i <= 20; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'btn-box btn-level';
-                btn.innerText = `Niveau ${i}`;
-                btn.onclick = () => startQuizLevel(i);
-                grid.appendChild(btn);
-            }
-        }
-
-        async function startQuizLevel(levelNum) {
-            selectedLevel = levelNum;
-            document.getElementById('viewLevel').style.display = 'none';
-            document.getElementById('viewQuiz').style.display = 'block';
+        // Chaje kesyon ki soti nan Firestore
+        async function loadGameQuestions() {
+            document.getElementById('current-system').innerText = selectedSystem;
             
-            // Re-inisyalize eta nivo a
-            currentQuestionIndex = 0;
-            currentScore = 0;
-            purchasedCountThisLevel = 0;
-            updateBuyButtonUI();
-
-            document.getElementById('playerCoinsText').innerText = userData.coins || 0;
-            document.getElementById('currentScoreText').innerText = 0;
-
-            // Chache kesyon yo nan Firestore pou Aparèy sa a ak Nivo sa a
-            document.getElementById('questionField').innerText = "Chargement des questions...";
-            document.getElementById('optionsBox').innerHTML = "";
-
             try {
                 const qRef = collection(db, "questions");
                 const q = query(qRef, where("system", "==", selectedSystem), where("level", "==", selectedLevel));
-                const snap = await getDocs(q);
+                const querySnapshot = await getDocs(q);
 
-                questionsList = [];
-                snap.forEach(doc => {
-                    questionsList.push({ id: doc.id, ...doc.data() });
+                querySnapshot.forEach((doc) => {
+                    currentQuestions.push(doc.data());
                 });
 
-                // Si baz de done a vid pou aparèy sa, nou kreye fo kesyon tès pou nivo a pa bloke jwè a
-                if(questionsList.length === 0) {
-                    for(let i=1; i<=15; i++) {
-                        questionsList.push({
-                            question: `[Exemple] Question ${i} sur l'${selectedSystem} (Niveau ${selectedLevel})`,
-                            options: ["Option Correcte", "Option B", "Option C", "Option D"],
-                            answer: "Option Correcte"
-                        });
-                    }
+                // Triye kesyon yo yon fason oza (Randomize)
+                currentQuestions.sort(() => Math.random() - 0.5);
+
+                // Limite a 15 kesyon pou sesyon an
+                if (currentQuestions.length > 15) {
+                    currentQuestions = currentQuestions.slice(0, 15);
+                }
+
+                if (currentQuestions.length === 0) {
+                    document.getElementById('question-box').innerText = "Aucune question trouvée pour ce niveau.";
+                    return;
                 }
 
                 showQuestion();
-            } catch (e) {
-                console.error(e);
-                document.getElementById('questionField').innerText = "Erreur de chargement des questions.";
+
+            } catch (error) {
+                console.error("Erreur chargement done:", error);
+                showToast("Erreur de chargement des questions.", "error");
             }
         }
 
+        // Afiche Kesyon Kouran an
         function showQuestion() {
-            hasAnswered = false;
-            document.getElementById('btnBuyAnswer').style.display = (purchasedCountThisLevel < 3) ? 'inline-block' : 'none';
+            clearInterval(timerInterval); // Rete ansyen revey la
             
-            if(currentQuestionIndex >= 15) {
-                endQuizLevel();
-                return;
-            }
+            const qData = currentQuestions[currentIndex];
+            
+            document.getElementById('question-counter').innerText = `${currentIndex + 1}/${currentQuestions.length}`;
+            document.getElementById('question-box').innerText = qData.question;
+            document.getElementById('btn-next').style.display = 'none'; // Kache bouton swivan an
 
-            document.getElementById('quizProgress').innerText = `Question: ${currentQuestionIndex + 1}/15`;
-            const currentQ = questionsList[currentQuestionIndex];
-
-            document.getElementById('questionField').innerText = currentQ.question;
-            const optionsBox = document.getElementById('optionsBox');
+            const optionsBox = document.getElementById('options-box');
             optionsBox.innerHTML = "";
 
-            // Melanje opsyon yo pou yo pa toujou nan menm pozisyon
-            const shuffledOptions = [...currentQ.options].sort(() => Math.random() - 0.5);
-
-            shuffledOptions.forEach(opt => {
+            qData.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'option-btn';
+                btn.className = "option-btn";
                 btn.innerText = opt;
-                btn.onclick = () => checkPlayerAnswer(btn, opt, currentQ.answer);
+                btn.onclick = () => checkAnswer(btn, opt, qData.answer);
                 optionsBox.appendChild(btn);
             });
+
+            startTimer(); // Lanse nouvo reveye 15s la
         }
 
-        function checkPlayerAnswer(selectedBtn, chosenOpt, correctOpt) {
-            if(hasAnswered) return;
-            hasAnswered = true;
-
-            const allBtns = document.querySelectorAll('.option-btn');
+        // Kontwòl Ti Revey 15 segonn lan
+        function startTimer() {
+            let timeLeft = timeLimit;
+            const timerDisplay = document.getElementById('seconds-left');
+            const timerBox = document.getElementById('timer-display');
             
-            if(chosenOpt === correctOpt) {
+            timerDisplay.innerText = timeLeft;
+            timerBox.classList.remove('warning');
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.innerText = timeLeft;
+
+                if (timeLeft <= 5) {
+                    timerBox.classList.add('warning'); // Fè l flashe lè l prèske fini
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout(); // Moun lan pèdi tan
+                }
+            }, 1000);
+        }
+
+        // Lè 15 segonn lan fini san l pa chwazi anyen
+        function handleTimeout() {
+            disableAllOptions();
+            const correctAnswer = currentQuestions[currentIndex].answer;
+            highlightCorrect(correctAnswer);
+            
+            showToast("Temps écoulé ! ⏱️", "error");
+            document.getElementById('btn-next').style.display = 'inline-flex'; // Montre bouton swivan an
+        }
+
+        // Tcheke si Repons lan bon
+        async function checkAnswer(selectedBtn, chosenOpt, correctOpt) {
+            clearInterval(timerInterval); // Rete revey la imedyatman
+            disableAllOptions();
+
+            if (chosenOpt === correctOpt) {
                 selectedBtn.classList.add('correct');
-                currentScore++;
-                document.getElementById('currentScoreText').innerText = currentScore;
-                playSound('correct');
+                score++;
+                
+                // Kalkile ak ajoute Coins yo (Pa egzanp: 10 coins pa bon repons)
+                currentCoins += 10;
+                document.getElementById('user-coins').innerText = currentCoins;
+                
+                // Mete Firestore ajou imedyatman nan background lan
+                if (currentUserDocRef) {
+                    await updateDoc(currentUserDocRef, { coins: currentCoins });
+                }
+
+                showToast("Bonne réponse ! +10 AC 🌟", "success");
             } else {
                 selectedBtn.classList.add('wrong');
-                // Toujou montre repons kòrèk la an vèt
-                allBtns.forEach(btn => {
-                    if(btn.innerText === correctOpt) btn.classList.add('correct');
-                });
-                playSound('wrong');
+                highlightCorrect(correctOpt); // Limen bon repons lan an vèt
+                showToast("Mauvaise réponse ! ❌", "error");
             }
 
-            // Pase nan pwochen kesyon apre 2 segond
-            setTimeout(() => {
-                currentQuestionIndex++;
-                showQuestion();
-            }, 2000);
+            document.getElementById('btn-next').style.display = 'inline-flex'; // Montre bouton swivan an pou l ka kontinye
         }
 
-        // AKSYON POU ACHTE REPONS
-        window.buyCurrentAnswer = async function() {
-            if(hasAnswered) return;
-            if(purchasedCountThisLevel >= 3) { alert("Vous avez atteint la limite d'achat pour ce niveau."); return; }
-
-            // Detèmine pri a selon kantite li te achte deja
-            let cost = 5;
-            if(purchasedCountThisLevel === 1) cost = 10;
-            if(purchasedCountThisLevel === 2) cost = 15;
-
-            if((userData.coins || 0) < cost) {
-                alert("AliCoins insuffisants!");
-                return;
-            }
-
-            // Deduwi pyès yo nan Firebase
-            userData.coins -= cost;
-            document.getElementById('playerCoinsText').innerText = userData.coins;
-            purchasedCountThisLevel++;
-            updateBuyButtonUI();
-
-            try {
-                await updateDoc(doc(db, "users", currentQuizUser.uid), { coins: userData.coins });
-            } catch(e) { console.error("Erreur mise à jour pièces:", e); }
-
-            // Jwenn bouton ki gen repons kòrèk la epi deklanche l otomatikman
-            const currentQ = questionsList[currentQuestionIndex];
-            const allBtns = document.querySelectorAll('.option-btn');
-            
-            allBtns.forEach(btn => {
-                if(btn.innerText === currentQ.answer) {
-                    checkPlayerAnswer(btn, currentQ.answer, currentQ.answer);
+        // Limen bon repons lan an vèt
+        function highlightCorrect(correctAnswer) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText === correctAnswer) {
+                    btn.classList.add('correct');
                 }
             });
-        };
-
-        function updateBuyButtonUI() {
-            let nextCost = 5;
-            if(purchasedCountThisLevel === 1) nextCost = 10;
-            if(purchasedCountThisLevel === 2) nextCost = 15;
-            document.getElementById('buyCostText').innerText = nextCost;
         }
 
-        async function endQuizLevel() {
-            document.getElementById('viewQuiz').style.display = 'none';
-            document.getElementById('viewResult').style.display = 'block';
+        // Bloke tout bouton yo pou l pa klike de fwa
+        function disableAllOptions() {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.disabled = true);
+        }
 
-            document.getElementById('resultScore').innerText = `${currentScore} / 15`;
-            const title = document.getElementById('resultTitle');
-            const msg = document.getElementById('resultMessage');
-
-            if(currentScore >= 10) {
-                title.innerText = "Niveau Réussi ! 🎉";
-                title.style.color = "var(--success)";
-                
-                // Bay 30 coins kòm rekonpans
-                userData.coins = (userData.coins || 0) + 30;
-                msg.innerHTML = "Félicitations! Vous passez au niveau supérieur et gagnez <strong style='color:var(--accent-gold);'>+30 AliCoins</strong>.";
-                
-                try {
-                    await updateDoc(doc(db, "users", currentQuizUser.uid), { coins: userData.coins });
-                } catch(e) { console.error(e); }
+        // Fonksyon bouton Swivan (Manual Next)
+        window.nextQuestion = function() {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                showQuestion();
             } else {
-                title.innerText = "Échec ! ❌";
-                title.style.color = "var(--error)";
-                msg.innerText = "Score insuffisant (Minimum 10 requis). Réessayez pour débloquer la suite.";
+                // Finisman jwèt la, voye l sou paj rezilta
+                window.location.href = `resultat.html?score=${score}&total=${currentQuestions.length}&level=${selectedLevel}&system=${selectedSystem}`;
             }
+        };
+
+        // Bèl Notifikasyon Custom (Menm jan ak Dashboard la)
+        function showToast(message, type) {
+            const toast = document.getElementById('toast-notif');
+            const icon = document.getElementById('toast-icon');
+            const msgSpan = document.getElementById('toast-message');
+
+            msgSpan.innerText = message;
+            toast.className = "toast-notification active";
+
+            if (type === "success") {
+                toast.classList.add('toast-success');
+                icon.className = "fa-solid fa-circle-check";
+                icon.style.color = "var(--success)";
+            } else {
+                toast.classList.add('toast-error');
+                icon.className = "fa-solid fa-circle-exclamation";
+                icon.style.color = "var(--danger)";
+            }
+
+            // Kache l apre 2.5 segonn
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 2500);
         }
-
-        window.showLevelsScreen = function() {
-            document.getElementById('viewResult').style.display = 'none';
-            document.getElementById('viewLevel').style.display = 'block';
-            selectSystem(selectedSystem); // Refreshe griy nivo yo
-        };
-
-        window.goBack = function() {
-            if(document.getElementById('viewLevel').style.display === 'block') {
-                document.getElementById('viewLevel').style.display = 'none';
-                document.getElementById('viewSystem').style.display = 'block';
-                document.getElementById('btnBack').style.display = 'none';
-            }
-        };
     </script>
 </body>
 </html>
