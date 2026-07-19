@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>alifoot - Gade Grand Final la an Dirèk</title>
+    <title>alifoot - Final la an Dirèk</title>
     <style>
         * {
             box-sizing: border-box;
@@ -20,32 +20,16 @@
         }
         header {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
         header h1 {
-            font-size: 26px;
+            font-size: 24px;
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
             font-weight: 800;
-        }
-        .badge {
-            background-color: #e50914;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 8px;
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
         }
         main {
             flex: 1;
@@ -53,136 +37,177 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            max-width: 1000px;
+            max-width: 600px;
             margin: 0 auto;
             width: 100%;
         }
-        .video-wrapper {
-            width: 100%;
-            background-color: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            border: 1px solid #1f2635;
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        .info-section {
-            margin-top: 25px;
-            text-align: center;
+        
+        /* Kat Match Pwofesyonèl */
+        .match-card {
             width: 100%;
             background: #151a24;
-            padding: 20px;
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid #1f2635;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-top: 10px;
         }
-        .info-section h2 {
-            font-size: 18px;
+        .live-badge {
+            background-color: #e50914;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            animation: blink 1.5s infinite;
+            letter-spacing: 1px;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        .vs-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .team {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .team img {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #1f2635;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background-color: #fff;
+        }
+        .team span {
+            margin-top: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .vs {
+            font-size: 22px;
+            font-weight: 900;
             color: #38ef7d;
-            margin-bottom: 8px;
+            font-style: italic;
+            padding: 0 10px;
         }
-        .info-section p {
-            color: #a0aab5;
+        .match-title {
             font-size: 14px;
-            line-height: 1.6;
+            color: #a0aab5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
         }
-        .btn-reload {
+
+        /* Gwo Bouton Play la */
+        .btn-play {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 14px;
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 12px;
             cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+            box-shadow: 0 6px 20px rgba(56, 239, 125, 0.3);
             transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            text-transform: uppercase;
         }
-        .btn-reload:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(56, 239, 125, 0.5);
         }
-        .btn-reload:active {
+        .btn-play:active {
             transform: translateY(0);
         }
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-left: 14px solid white;
+            border-bottom: 8px solid transparent;
+        }
+
         footer {
             background-color: #07090d;
             text-align: center;
-            padding: 20px;
-            font-size: 13px;
+            padding: 15px;
+            font-size: 12px;
             color: #4a5568;
             border-top: 1px solid #111;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <span class="badge">EN DIRECT</span>
         <h1>⚽ alifoot</h1>
     </header>
 
     <main>
-        <div class="video-wrapper">
-            <div class="video-container">
-                <iframe 
-                    id="player-final" 
-                    allowfullscreen="true" 
-                    scrolling="no" 
-                    allow="encrypted-media"
-                    src="">
-                </iframe>
-            </div>
-        </div>
+        <div class="match-card">
+            <span class="live-badge">🔴 EN DIRECT</span>
+            
+            <div class="match-title">GRAND FINAL LA</div>
 
-        <div class="info-section">
-            <h2>Sipò Teknik</h2>
-            <p>Si videyo a bloke, li rete blanch, oswa si match la koupe, klike sou bouton anba a pou rafrechi jwè a.</p>
-            <button class="btn-reload" onclick="reloadPlayer()">RAFRECHI MATCH LA</button>
+            <div class="vs-container">
+                <!-- Argentine -->
+                <div class="team">
+                    <img src="https://flagcdn.com/w160/ar.png" alt="Argentine">
+                    <span>ARGENTINE</span>
+                </div>
+
+                <div class="vs">VS</div>
+
+                <!-- Espagne -->
+                <div class="team">
+                    <img src="https://flagcdn.com/w160/es.png" alt="Espagne">
+                    <span>ESPAGNE</span>
+                </div>
+            </div>
+
+            <!-- Bouton PLAY k ap ouvri lyen an dirèk la san bloke nan iframe -->
+            <a id="play-link" href="#" target="_blank" class="btn-play">
+                <div class="play-icon"></div> KLIKE POU GADE MATCH LA
+            </a>
         </div>
     </main>
 
     <footer>
-        &copy; 2026 alifoot - Tout dwa rezève. Pwojè Final.
+        &copy; 2026 alifoot - Tout dwa rezève.
     </footer>
 
     <script>
-        // Lyen an Base64 ki mennen sou kouran match la
+        // Lyen videyo a an Base64
         const kodMatch = "aHR0cHM6Ly9sYXRhbXZpZHpwcm8uY29tL2NhbmFsLnBocD9zdHJlYW09ZHNwb3J0cw==";
 
-        function initPlayer() {
-            try {
-                const lyenDirek = atob(kodMatch);
-                document.getElementById('player-final').src = lyenDirek;
-            } catch(e) {
-                console.error("Erreur nan dekodaj lyen an.");
-            }
+        // Dekode epi mete lyen an dirèkteman nan bouton an
+        try {
+            const lyenDirek = atob(kodMatch);
+            document.getElementById('play-link').href = lyenDirek;
+        } catch(e) {
+            console.error("Erreur nan lyen an.");
         }
-
-        function reloadPlayer() {
-            const iframe = document.getElementById('player-final');
-            const currentSrc = iframe.src;
-            iframe.src = '';
-            setTimeout(() => {
-                iframe.src = currentSrc;
-            }, 150);
-        }
-
-        // Lanse match la otomatikman lè paj la pare
-        window.onload = initPlayer;
     </script>
 
 </body>
